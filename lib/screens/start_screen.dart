@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku/screens/setting_screen.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
@@ -13,7 +14,11 @@ class StartScreen extends StatelessWidget {
               alignment: Alignment.topRight,
               child: IconButton(
                   onPressed: () {
-                    print('IconButton pressed');
+                    showDialog(
+                      context: context,
+                      barrierColor: Colors.transparent,
+                      builder: (_) => SettingScreen(),
+                    );
                   },
                   icon: Icon(Icons.settings, size: 50)),
             ),

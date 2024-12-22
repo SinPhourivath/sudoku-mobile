@@ -14,8 +14,15 @@ class SudokuApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Sudoku Game',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+          textTheme: TextTheme(
+              titleLarge: TextStyle(
+                  fontSize: 60,
+                  color: Colors.black,
+                  decoration: TextDecoration.none),
+              titleMedium: TextStyle(
+                  fontSize: 36,
+                  color: Colors.black,
+                  decoration: TextDecoration.none))),
       home: StartScreen(),
     );
   }
