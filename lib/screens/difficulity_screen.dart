@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku/screens/difficulity_screen.dart';
+import 'package:sudoku/screens/game_screen.dart';
 import 'package:sudoku/screens/setting_screen.dart';
 
-class StartScreen extends StatelessWidget {
-  const StartScreen({super.key});
+class DifficulityScreen extends StatelessWidget {
+  const DifficulityScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +27,6 @@ class StartScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image(image: AssetImage('assets/images/flutter.png')),
-                  SizedBox(height: 50),
                   SizedBox(
                     width: 350,
                     height: 50,
@@ -37,21 +35,10 @@ class StartScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => DifficulityScreen(),
+                              builder: (context) => GameScreen(),
                             ));
                       },
-                      child: Text('New Game'),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  SizedBox(
-                    width: 350,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        
-                      },
-                      child: Text('Continue'),
+                      child: Text('Easy 6x6'),
                     ),
                   ),
                   SizedBox(height: 20),
@@ -62,7 +49,18 @@ class StartScreen extends StatelessWidget {
                       onPressed: () {
 
                       },
-                      child: Text('Exit Game'),
+                      child: Text('Medium 9x9'),
+                    ),
+                  ),
+                  SizedBox(height: 20),
+                  SizedBox(
+                    width: 350,
+                    height: 50,
+                    child: ElevatedButton(
+                      onPressed: () {
+
+                      },
+                      child: Text('Hard 12'),
                     ),
                   ),
                 ],
