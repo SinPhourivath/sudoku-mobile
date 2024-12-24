@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 import '../models/difficulity_model.dart';
 import '../utils/board_generator.dart';
 

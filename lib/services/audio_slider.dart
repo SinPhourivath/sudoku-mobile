@@ -27,19 +27,17 @@ class _AudioSliderState extends State<AudioSlider> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: Slider(
-        value: _volume,
-        min: 0.0,
-        max: 1.0,
-        divisions: 20,
-        onChanged: (value) {
-          setState(() {
-            _volume = value;
-            _audioPlayer.setVolume(_volume);
-          });
-        },
-      ),
+    return Slider(
+      value: _volume,
+      min: 0.0,
+      max: 1.0,
+      divisions: 20,
+      onChanged: (value) {
+        setState(() {
+          _volume = value;
+          _audioPlayer.setVolume(_volume);
+        });
+      },
     );
   }
 }

@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../services/theme_notifier.dart';
 import 'screens/start_screen.dart';
 
 void main() {
-  runApp(const SudokuApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: (_) => ThemeNotifier(),
+      child: const SudokuApp(),
+    ),
+  );
 }
 
 class SudokuApp extends StatelessWidget {
@@ -10,20 +17,15 @@ class SudokuApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final themeNotifier = Provider.of<ThemeNotifier>(context);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Sudoku Game',
-      theme: ThemeData(
-          textTheme: TextTheme(
-              titleLarge: TextStyle(
-                  fontSize: 60,
-                  color: Colors.black,
-                  decoration: TextDecoration.none),
-              titleMedium: TextStyle(
-                  fontSize: 36,
-                  color: Colors.black,
-                  decoration: TextDecoration.none))),
-      home: StartScreen(),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: themeNotifier.themeMode,
+      home: const StartScreen(),
     );
   }
 }

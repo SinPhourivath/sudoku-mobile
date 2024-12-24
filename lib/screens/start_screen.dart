@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku/screens/difficulity_screen.dart';
-import 'package:sudoku/screens/setting_screen.dart';
+import '../screens/difficulity_screen.dart';
+import '../screens/setting_screen.dart';
 
 class StartScreen extends StatelessWidget {
   const StartScreen({super.key});
