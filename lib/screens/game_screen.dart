@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku/screens/setting_screen.dart';
+import 'package:sudoku/widgets/topbar.dart';
 
 import '../models/difficulity_model.dart';
 import '../utils/board_generator.dart';
@@ -47,25 +47,7 @@ class _GameScreenState extends State<GameScreen> {
       child: Scaffold(
         body: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.arrow_back, size: 50)),
-                IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        barrierColor: Colors.transparent,
-                        builder: (_) => SettingScreen(),
-                      );
-                    },
-                    icon: Icon(Icons.settings, size: 50)),
-              ],
-            ),
+            TopBar(),
             Expanded(
               child: GridView.builder(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -99,7 +81,9 @@ class _GameScreenState extends State<GameScreen> {
                         ),
                         child: Center(
                           child: Text(
-                            grid[row][col] != 0 ? grid[row][col].toString() : '',
+                            grid[row][col] != 0
+                                ? grid[row][col].toString()
+                                : '',
                             style: TextStyle(
                               color: isDarkMode ? Colors.white : Colors.black,
                               fontSize: 16,

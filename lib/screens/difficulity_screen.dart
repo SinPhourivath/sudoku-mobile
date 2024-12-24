@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku/widgets/topbar.dart';
 
 import '../models/difficulity_model.dart';
 import '../screens/game_screen.dart';
-import '../screens/setting_screen.dart';
 
 class DifficulityScreen extends StatelessWidget {
   const DifficulityScreen({super.key});
@@ -13,25 +13,7 @@ class DifficulityScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(Icons.arrow_back, size: 50)),
-                IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        barrierColor: Colors.transparent,
-                        builder: (_) => SettingScreen(),
-                      );
-                    },
-                    icon: Icon(Icons.settings, size: 50)),
-              ],
-            ),
+            TopBar(),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
