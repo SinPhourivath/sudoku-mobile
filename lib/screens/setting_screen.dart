@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:sudoku/widgets/audio_slider.dart';
+import 'package:sudoku/services/audio_slider.dart';
 
 class SettingScreen extends StatelessWidget {
   const SettingScreen({super.key});
