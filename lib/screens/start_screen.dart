@@ -27,7 +27,10 @@ class StartScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image(image: AssetImage('assets/images/flutter.png')),
+                  Image(
+                    image: AssetImage('assets/images/nobg_logo.png'),
+                    width: 200,
+                  ),
                   SizedBox(height: 50),
                   SizedBox(
                     width: 350,
@@ -48,9 +51,7 @@ class StartScreen extends StatelessWidget {
                     width: 350,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
-                        
-                      },
+                      onPressed: () {},
                       child: Text('Continue'),
                     ),
                   ),
@@ -59,9 +60,7 @@ class StartScreen extends StatelessWidget {
                     width: 350,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                       child: Text('Exit Game'),
                     ),
                   ),

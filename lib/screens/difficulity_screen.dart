@@ -13,17 +13,24 @@ class DifficulityScreen extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Align(
-              alignment: Alignment.topRight,
-              child: IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      barrierColor: Colors.transparent,
-                      builder: (_) => SettingScreen(),
-                    );
-                  },
-                  icon: Icon(Icons.settings, size: 50)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: Icon(Icons.arrow_back, size: 50)),
+                IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        barrierColor: Colors.transparent,
+                        builder: (_) => SettingScreen(),
+                      );
+                    },
+                    icon: Icon(Icons.settings, size: 50)),
+              ],
             ),
             Expanded(
               child: Column(

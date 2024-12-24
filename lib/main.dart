@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../services/theme_notifier.dart';
+
+import 'services/theme_notifier.dart';
 import 'screens/start_screen.dart';
 
 void main() {

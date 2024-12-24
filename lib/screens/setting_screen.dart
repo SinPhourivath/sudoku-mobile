@@ -13,57 +13,65 @@ class SettingScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
 
-    return Material( // Wrap everything in a Material widget
-      child: Stack(
-        children: [
-          BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+    return Stack(
+      children: [
+        GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
             child: Container(
               color: Colors.black.withValues(alpha: 200),
             ),
           ),
-          Center(
+        ),
+        Center(
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
             child: Container(
               width: 400,
               decoration: BoxDecoration(
                 color: themeNotifier.themeMode == ThemeMode.dark
-                    ? Colors.grey[900]
-                    : Colors.white,
+                    ? Colors.grey[900]!.withValues(alpha: 100)
+                    : Colors.white.withValues(alpha: 100),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(20),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text("Setting",
-                        style: Theme.of(context).textTheme.titleLarge),
-                    SizedBox(height: 20),
-                    Text(
-                      "Sound",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    AudioSlider(),
-                    SizedBox(height: 20),
-                    Text(
-                      "Dark mode",
-                      style: Theme.of(context).textTheme.titleMedium,
-                    ),
-                    Switch(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("Setting",
+                      style: Theme.of(context).textTheme.titleLarge),
+                  SizedBox(height: 20),
+                  Text(
+                    "Sound",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  Material(
+                    color: Colors.transparent,
+                    child: AudioSlider(),
+                  ),
+                  SizedBox(height: 20),
+                  Text(
+                    "Dark mode",
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  Material(
+                    color: Colors.transparent,
+                    child: Switch(
                       value: themeNotifier.themeMode == ThemeMode.dark,
                       onChanged: (bool value) {
                         themeNotifier.toggleTheme(value);
                       },
                     ),
-                    SizedBox(height: 20),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 20),
+                ],
               ),
             ),
-          )
-        ],
-      ),
+          ),
+        )
+      ],
     );
   }
 }
-
