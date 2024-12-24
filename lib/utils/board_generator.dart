@@ -7,7 +7,8 @@ class SudokuGenerator {
     board = List.generate(9, (_) => List.filled(9, 0));
   }
 
-  // Start from [0][0]
+  // Create a whole board and remove number to create the Sudoku
+  // to make sure the board is solvable
   void generateValidBoard() {
     _fillBoard(row: 0, col: 0);
   }
@@ -18,7 +19,7 @@ class SudokuGenerator {
 
     List<int> numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
     // Apparently, shuffle alone can't garenteen randomness?
-    // It is based on speed, time... etc, which chould leads to repetitve 
+    // It is based on speed, time... etc, which chould leads to repetitve
     numbers.shuffle(Random());
 
     for (int number in numbers) {
@@ -29,12 +30,14 @@ class SudokuGenerator {
       }
     }
 
-    return false; // No valid number found
+    return false;
   }
 
   // Number can be placed if no repetitive in row, column, and its 3x3 area
   bool _isSafe(int row, int col, int number) {
-    return !_inRow(row, number) && !_inCol(col, number) && !_inBox(row, col, number);
+    return !_inRow(row, number) &&
+        !_inCol(col, number) &&
+        !_inBox(row, col, number);
   }
 
   bool _inRow(int row, int number) {
@@ -63,6 +66,22 @@ class SudokuGenerator {
   void printBoard() {
     for (var row in board) {
       print(row);
+    }
+  }
+
+  // Remove numbers to create a Sudoku board
+  void removeNumbers(int cellsToRemove) {
+    Random rand = Random();
+
+    // Randomly remove cells
+    while (cellsToRemove > 0) {
+      int row = rand.nextInt(9);
+      int col = rand.nextInt(9);
+
+      if (board[row][col] != 0) {
+        board[row][col] = 0;
+        cellsToRemove--;
+      }
     }
   }
 }

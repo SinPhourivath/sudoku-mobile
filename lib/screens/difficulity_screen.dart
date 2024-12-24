@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku/screens/game_screen.dart';
-import 'package:sudoku/screens/setting_screen.dart';
+import '../models/difficulity_model.dart';
+import '../screens/game_screen.dart';
+import '../screens/setting_screen.dart';
 
 class DifficulityScreen extends StatelessWidget {
   const DifficulityScreen({super.key});
@@ -35,7 +36,8 @@ class DifficulityScreen extends StatelessWidget {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => GameScreen(),
+                              builder: (context) =>
+                                  GameScreen(difficulity: Difficulity.easy),
                             ));
                       },
                       child: Text('Easy 6x6'),
@@ -47,7 +49,12 @@ class DifficulityScreen extends StatelessWidget {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  GameScreen(difficulity: Difficulity.medium),
+                            ));
                       },
                       child: Text('Medium 9x9'),
                     ),
@@ -58,7 +65,12 @@ class DifficulityScreen extends StatelessWidget {
                     height: 50,
                     child: ElevatedButton(
                       onPressed: () {
-
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  GameScreen(difficulity: Difficulity.hard),
+                            ));
                       },
                       child: Text('Hard 12'),
                     ),
