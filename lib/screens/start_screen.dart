@@ -55,15 +55,6 @@ class StartScreen extends StatelessWidget {
                     width: 350,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {},
-                      child: Text('Continue'),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  SizedBox(
-                    width: 350,
-                    height: 50,
-                    child: ElevatedButton(
                       onPressed: () {
                         SystemNavigator.pop();
                       },

@@ -2,14 +2,14 @@ import '../models/difficulity_model.dart';
 import '../utils/generator_util.dart';
 
 class Game {
-  List<List<int>> board;
+  List<List<int>> gameBoard;
   List<List<int>> solutionBoard;
-  Difficulity difficulity;
+  Difficulty difficulity;
   DateTime startTime;
 
   // Create a new game
   Game.newGame(this.difficulity)
-      : board = [],
+      : gameBoard = [],
         solutionBoard = [],
         startTime = DateTime.now() {
     SudokuGenerator generator = SudokuGenerator();
@@ -19,7 +19,7 @@ class Game {
     solutionBoard = List.from(generator.getCopyOfBoard());
 
     // Remove numbers based on difficulty
-    generator.removeNumbers(difficulity.numberToRemove);
-    board = generator.getCopyOfBoard();
+    generator.removeNumbers(difficulity.numbersToRemove);
+    gameBoard = generator.getCopyOfBoard();
   }
 }

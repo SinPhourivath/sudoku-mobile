@@ -6,7 +6,7 @@ import '../models/game_model.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key, required this.difficulity});
-  final Difficulity difficulity;
+  final Difficulty difficulity;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -19,15 +19,12 @@ class _GameScreenState extends State<GameScreen> {
   int wrongAttempts = 0;
   int correctPlacements = 0;
 
-  // late AudioPlayer _audioPlayer;
-
   @override
   void initState() {
     super.initState();
-    // _audioPlayer = AudioPlayer();
     Game game = Game.newGame(widget.difficulity);
 
-    _populateGrid(game.board);
+    _populateGrid(game.gameBoard);
     _saveBoard(game.solutionBoard);
   }
 
@@ -45,21 +42,6 @@ class _GameScreenState extends State<GameScreen> {
   void _saveBoard(List<List<int>> board) {
     solutionBoard = board;
   }
-
-  // Future<void> _playWrongPieceSound() async {
-  //   try {
-  //     await _audioPlayer.setAsset('assets/sounds/wrong_piece.mp3');
-  //     await _audioPlayer.play();
-  //   } catch (e) {
-  //     print('Error playing sound: $e');
-  //   }
-  // }
-
-  // @override
-  // void dispose() {
-  //   _audioPlayer.dispose();
-  //   super.dispose();
-  // }
 
   void _endGame() {
     showDialog(
@@ -84,7 +66,7 @@ class _GameScreenState extends State<GameScreen> {
   }
 
   void _checkGameNearingCompletion() {
-  if (correctPlacements >= widget.difficulity.numberToRemove) {
+  if (correctPlacements >= widget.difficulity.numbersToRemove) {
     _gameWon();
   }
 }
@@ -140,7 +122,6 @@ class _GameScreenState extends State<GameScreen> {
                           correctPlacements++;
                         }
                       } else {
-                        // _playWrongPieceSound();
                           wrongAttempts++;
                         if (wrongAttempts >= 3) {
                           _endGame();

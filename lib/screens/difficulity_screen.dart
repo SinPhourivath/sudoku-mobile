@@ -27,7 +27,7 @@ class DifficulityScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  GameScreen(difficulity: Difficulity.easy),
+                                  GameScreen(difficulity: Difficulty.easy),
                             ));
                       },
                       child: Text('Easy 6x6'),
@@ -43,7 +43,7 @@ class DifficulityScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  GameScreen(difficulity: Difficulity.medium),
+                                  GameScreen(difficulity: Difficulty.medium),
                             ));
                       },
                       child: Text('Medium 9x9'),
@@ -59,7 +59,7 @@ class DifficulityScreen extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  GameScreen(difficulity: Difficulity.hard),
+                                  GameScreen(difficulity: Difficulty.hard),
                             ));
                       },
                       child: Text('Hard 12'),
