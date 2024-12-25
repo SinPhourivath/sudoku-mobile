@@ -11,6 +11,7 @@ class SettingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
 
     return Stack(
       children: [
@@ -31,7 +32,7 @@ class SettingScreen extends StatelessWidget {
             child: Container(
               width: 400,
               decoration: BoxDecoration(
-                color: themeNotifier.themeMode == ThemeMode.dark
+                color: isDarkMode
                     ? Colors.grey[900]!.withValues(alpha: 100)
                     : Colors.white.withValues(alpha: 100),
                 borderRadius: BorderRadius.circular(10),
@@ -39,26 +40,30 @@ class SettingScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("Setting",
-                      style: Theme.of(context).textTheme.titleLarge),
-                  SizedBox(height: 20),
-                  Text(
-                    "Sound",
-                    style: Theme.of(context).textTheme.titleMedium,
+                  Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: Text(
+                      "Setting",
+                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: isDarkMode ? Colors.white : Colors.black,
+                            fontSize: 30,
+                          ),
+                    ),
                   ),
-                  // Material(
-                  //   color: Colors.transparent,
-                  //   child: AudioSlider(),
-                  // ),
                   SizedBox(height: 20),
                   Text(
                     "Dark mode",
-                    style: Theme.of(context).textTheme.titleMedium,
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                          fontSize: 20,
+                          color:
+                              isDarkMode ? Colors.grey[500] : Colors.grey[800],
+                        ),
                   ),
                   Material(
                     color: Colors.transparent,
                     child: Switch(
-                      value: themeNotifier.themeMode == ThemeMode.dark,
+                      value: isDarkMode,
                       onChanged: (bool value) {
                         themeNotifier.toggleTheme(value);
                       },
