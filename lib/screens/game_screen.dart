@@ -194,7 +194,7 @@ class _GameScreenState extends State<GameScreen> {
                                   ),
                                   color: grid[row][col] != 0
                                       ? (isDarkMode
-                                          ? Colors.grey
+                                          ? Colors.grey.shade800
                                           : Colors.white70)
                                       : (isDarkMode
                                           ? Colors.grey.shade800
