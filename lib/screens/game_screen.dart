@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sudoku/widgets/topbar.dart';
 
 import '../models/difficulity_model.dart';
-import '../utils/board_generator.dart';
+import '../models/game_model.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key, required this.difficulity});
@@ -14,35 +14,30 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   List<List<int>> grid = List.generate(9, (_) => List.generate(9, (_) => 0));
-  late SudokuGenerator sudokuGenerator;
-  late List<List<int>> answerBoard;
+  late List<List<int>> solutionBoard;
 
   @override
   void initState() {
     super.initState();
-    sudokuGenerator = SudokuGenerator();
-    sudokuGenerator.generateValidBoard();
-    _saveAnswerBoard();
+    Game game = Game.newGame(widget.difficulity);
 
-    sudokuGenerator.removeNumbers(widget.difficulity.numberToRemove);
-    _populateGrid();
+    _populateGrid(game.board);
+    _saveBoard(game.solutionBoard);
   }
 
   // Transfer game board to the grid
-  void _populateGrid() {
+  void _populateGrid(List<List<int>> board) {
     setState(() {
       for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++) {
-          grid[i][j] = sudokuGenerator.board[i][j] == 0
-              ? 0
-              : sudokuGenerator.board[i][j];
+          grid[i][j] = board[i][j];
         }
       }
     });
   }
 
-  void _saveAnswerBoard() {
-    answerBoard = sudokuGenerator.getBoard();
+  void _saveBoard(List<List<int>> board) {
+    solutionBoard = board;
   }
 
   @override
@@ -66,7 +61,7 @@ class _GameScreenState extends State<GameScreen> {
                   final col = index % 9;
                   return DragTarget<int>(
                     onWillAcceptWithDetails: (details) {
-                      return sudokuGenerator.isSafe(row, col, details.data);
+                      return details.data == solutionBoard[row][col];
                     },
                     onAcceptWithDetails: (detail) {
                       setState(() {

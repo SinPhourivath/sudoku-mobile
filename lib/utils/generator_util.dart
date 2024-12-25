@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'sudoku_util.dart';
+
 class SudokuGenerator {
   late List<List<int>> board;
 
@@ -23,7 +25,7 @@ class SudokuGenerator {
     numbers.shuffle(Random());
 
     for (int number in numbers) {
-      if (isSafe(row, col, number)) {
+      if (SudokuUtils.isSafe(board, row, col, number)) {
         board[row][col] = number;
         if (_fillBoard(row: row, col: col + 1)) return true;
         board[row][col] = 0; // Backtrack
@@ -31,42 +33,6 @@ class SudokuGenerator {
     }
 
     return false;
-  }
-
-  // Number can be placed if no repetitive in row, column, and its 3x3 area
-  bool isSafe(int row, int col, int number) {
-    return !_inRow(row, number) &&
-        !_inCol(col, number) &&
-        !_inBox(row, col, number);
-  }
-
-  bool _inRow(int row, int number) {
-    return board[row].contains(number);
-  }
-
-  bool _inCol(int col, int number) {
-    for (int i = 0; i < 9; i++) {
-      if (board[i][col] == number) return true;
-    }
-    return false;
-  }
-
-  bool _inBox(int row, int col, int number) {
-    int boxRow = row - row % 3;
-    int boxCol = col - col % 3;
-    for (int i = 0; i < 3; i++) {
-      for (int j = 0; j < 3; j++) {
-        if (board[boxRow + i][boxCol + j] == number) return true;
-      }
-    }
-    return false;
-  }
-
-  // For testing
-  void printBoard() {
-    for (var row in board) {
-      print(row);
-    }
   }
 
   // Remove numbers to create a Sudoku board
@@ -85,7 +51,7 @@ class SudokuGenerator {
     }
   }
 
-  List<List<int>> getBoard() {
-    return board;
+  List<List<int>> getCopyOfBoard() {
+    return board.map<List<int>>((row) => List<int>.from(row)).toList();
   }
 }
