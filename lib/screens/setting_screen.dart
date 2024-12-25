@@ -3,7 +3,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../services/audio_slider.dart';
 import '../services/theme_notifier.dart';
 
 class SettingScreen extends StatelessWidget {
@@ -47,10 +46,10 @@ class SettingScreen extends StatelessWidget {
                     "Sound",
                     style: Theme.of(context).textTheme.titleMedium,
                   ),
-                  Material(
-                    color: Colors.transparent,
-                    child: AudioSlider(),
-                  ),
+                  // Material(
+                  //   color: Colors.transparent,
+                  //   child: AudioSlider(),
+                  // ),
                   SizedBox(height: 20),
                   Text(
                     "Dark mode",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import '../screens/difficulity_screen.dart';
 import '../screens/setting_screen.dart';
 
@@ -63,7 +64,9 @@ class StartScreen extends StatelessWidget {
                     width: 350,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        SystemNavigator.pop();
+                      },
                       child: Text('Exit Game'),
                     ),
                   ),

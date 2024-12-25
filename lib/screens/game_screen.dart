@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku/widgets/topbar.dart';
 
+import '../widgets/topbar.dart';
 import '../models/difficulity_model.dart';
 import '../models/game_model.dart';
 
@@ -15,10 +15,13 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   List<List<int>> grid = List.generate(9, (_) => List.generate(9, (_) => 0));
   late List<List<int>> solutionBoard;
+  int wrongAttempts = 0;
+  // late AudioPlayer _audioPlayer;
 
   @override
   void initState() {
     super.initState();
+    // _audioPlayer = AudioPlayer();
     Game game = Game.newGame(widget.difficulity);
 
     _populateGrid(game.board);
@@ -38,6 +41,43 @@ class _GameScreenState extends State<GameScreen> {
 
   void _saveBoard(List<List<int>> board) {
     solutionBoard = board;
+  }
+
+  // Future<void> _playWrongPieceSound() async {
+  //   try {
+  //     await _audioPlayer.setAsset('assets/sounds/wrong_piece.mp3');
+  //     await _audioPlayer.play();
+  //   } catch (e) {
+  //     print('Error playing sound: $e');
+  //   }
+  // }
+
+  // @override
+  // void dispose() {
+  //   _audioPlayer.dispose();
+  //   super.dispose();
+  // }
+
+  void _endGame() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Game Over'),
+          content: Text('You have made 3 wrong attempts. Try again!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
@@ -60,16 +100,23 @@ class _GameScreenState extends State<GameScreen> {
                   final row = index ~/ 9;
                   final col = index % 9;
                   return DragTarget<int>(
-                    onWillAcceptWithDetails: (details) {
-                      return details.data == solutionBoard[row][col];
-                    },
                     onAcceptWithDetails: (detail) {
-                      setState(() {
-                        // Only allow changes in the cells that are not already filled
+                      if (detail.data == solutionBoard[row][col]) {
                         if (grid[row][col] == 0) {
-                          grid[row][col] = detail.data;
+                          setState(() {
+                            grid[row][col] = detail.data;
+                          });
                         }
-                      });
+                      } else {
+                        // _playWrongPieceSound();
+                        setState(() {
+                          wrongAttempts++;
+                        });
+
+                        if (wrongAttempts >= 3) {
+                          _endGame();
+                        }
+                      }
                     },
                     builder: (context, candidateData, rejectedData) {
                       return Container(
