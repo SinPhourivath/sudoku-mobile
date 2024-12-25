@@ -15,14 +15,16 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   List<List<int>> grid = List.generate(9, (_) => List.generate(9, (_) => 0));
   late SudokuGenerator sudokuGenerator;
+  late List<List<int>> answerBoard;
 
   @override
   void initState() {
     super.initState();
     sudokuGenerator = SudokuGenerator();
     sudokuGenerator.generateValidBoard();
-    sudokuGenerator.removeNumbers(widget.difficulity.numberToRemove);
+    _saveAnswerBoard();
 
+    sudokuGenerator.removeNumbers(widget.difficulity.numberToRemove);
     _populateGrid();
   }
 
@@ -37,6 +39,10 @@ class _GameScreenState extends State<GameScreen> {
         }
       }
     });
+  }
+
+  void _saveAnswerBoard() {
+    answerBoard = sudokuGenerator.getBoard();
   }
 
   @override
@@ -59,6 +65,9 @@ class _GameScreenState extends State<GameScreen> {
                   final row = index ~/ 9;
                   final col = index % 9;
                   return DragTarget<int>(
+                    onWillAcceptWithDetails: (details) {
+                      return sudokuGenerator.isSafe(row, col, details.data);
+                    },
                     onAcceptWithDetails: (detail) {
                       setState(() {
                         // Only allow changes in the cells that are not already filled
@@ -71,8 +80,24 @@ class _GameScreenState extends State<GameScreen> {
                       return Container(
                         margin: EdgeInsets.all(2),
                         decoration: BoxDecoration(
-                          border: Border.all(
-                              color: isDarkMode ? Colors.white70 : Colors.grey),
+                          border: Border(
+                            top: BorderSide(
+                              color: isDarkMode ? Colors.white70 : Colors.black,
+                              width: row % 3 == 0 ? 4 : 0,
+                            ),
+                            left: BorderSide(
+                              color: isDarkMode ? Colors.white70 : Colors.black,
+                              width: col % 3 == 0 ? 4 : 0,
+                            ),
+                            right: BorderSide(
+                              color: isDarkMode ? Colors.white70 : Colors.black,
+                              width: (col + 1) % 3 == 0 ? 4 : 0,
+                            ),
+                            bottom: BorderSide(
+                              color: isDarkMode ? Colors.white70 : Colors.black,
+                              width: (row + 1) % 3 == 0 ? 4 : 0,
+                            ),
+                          ),
                           color: grid[row][col] != 0
                               ? (isDarkMode
                                   ? Colors.blueGrey.shade700

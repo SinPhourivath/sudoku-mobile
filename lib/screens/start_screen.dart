@@ -32,19 +32,22 @@ class StartScreen extends StatelessWidget {
                     width: 200,
                   ),
                   SizedBox(height: 50),
-                  SizedBox(
-                    width: 350,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
+                  Material(
+                    color: Colors.blue,
+                    elevation: 5,
+                    borderRadius: BorderRadius.circular(10),
+                    child: MaterialButton(
+                        minWidth: 350,
+                        height: 50,
+                        onPressed: () {
+                          Navigator.push(
                             context,
                             MaterialPageRoute(
                               builder: (context) => DifficulityScreen(),
-                            ));
-                      },
-                      child: Text('New Game'),
-                    ),
+                            ),
+                          );
+                        },
+                        child: Text('Start Game')),
                   ),
                   SizedBox(height: 20),
                   SizedBox(

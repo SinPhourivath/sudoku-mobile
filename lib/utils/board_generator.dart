@@ -23,7 +23,7 @@ class SudokuGenerator {
     numbers.shuffle(Random());
 
     for (int number in numbers) {
-      if (_isSafe(row, col, number)) {
+      if (isSafe(row, col, number)) {
         board[row][col] = number;
         if (_fillBoard(row: row, col: col + 1)) return true;
         board[row][col] = 0; // Backtrack
@@ -34,7 +34,7 @@ class SudokuGenerator {
   }
 
   // Number can be placed if no repetitive in row, column, and its 3x3 area
-  bool _isSafe(int row, int col, int number) {
+  bool isSafe(int row, int col, int number) {
     return !_inRow(row, number) &&
         !_inCol(col, number) &&
         !_inBox(row, col, number);
@@ -83,5 +83,9 @@ class SudokuGenerator {
         cellsToRemove--;
       }
     }
+  }
+
+  List<List<int>> getBoard() {
+    return board;
   }
 }
