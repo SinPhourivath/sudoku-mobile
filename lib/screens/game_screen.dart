@@ -15,7 +15,10 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   List<List<int>> grid = List.generate(9, (_) => List.generate(9, (_) => 0));
   late List<List<int>> solutionBoard;
+
   int wrongAttempts = 0;
+  int correctPlacements = 0;
+
   // late AudioPlayer _audioPlayer;
 
   @override
@@ -80,6 +83,34 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
+  void _checkGameNearingCompletion() {
+  if (correctPlacements >= widget.difficulity.numberToRemove) {
+    _gameWon();
+  }
+}
+
+  void _gameWon() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('You won!'),
+          content: Text('You complete the game successfully!'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.pop(context);
+                Navigator.pop(context);
+              },
+              child: Text('OK'),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final isDarkMode = Theme.of(context).brightness == Brightness.dark;
@@ -106,17 +137,17 @@ class _GameScreenState extends State<GameScreen> {
                           setState(() {
                             grid[row][col] = detail.data;
                           });
+                          correctPlacements++;
                         }
                       } else {
                         // _playWrongPieceSound();
-                        setState(() {
                           wrongAttempts++;
-                        });
-
                         if (wrongAttempts >= 3) {
                           _endGame();
                         }
                       }
+
+                      _checkGameNearingCompletion();
                     },
                     builder: (context, candidateData, rejectedData) {
                       return Container(
