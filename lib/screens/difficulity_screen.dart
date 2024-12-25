@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sudoku/widgets/button.dart';
 import 'package:sudoku/widgets/topbar.dart';
 
 import '../models/difficulity_model.dart';
@@ -9,66 +10,67 @@ class DifficulityScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            TopBar(),
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 350,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  GameScreen(difficulity: Difficulty.easy),
-                            ));
-                      },
-                      child: Text('Easy 6x6'),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  SizedBox(
-                    width: 350,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  GameScreen(difficulity: Difficulty.medium),
-                            ));
-                      },
-                      child: Text('Medium 9x9'),
-                    ),
-                  ),
-                  SizedBox(height: 20),
-                  SizedBox(
-                    width: 350,
-                    height: 50,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  GameScreen(difficulity: Difficulty.hard),
-                            ));
-                      },
-                      child: Text('Hard 12'),
-                    ),
-                  ),
-                ],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: isDarkMode
+                ? [Colors.grey[900]!, Colors.black]
+                : [Colors.blue[50]!, Colors.white],
+          ),
+        ),
+        child: Center(
+          child: Column(
+            children: [
+              TopBar(),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    GameButton(
+                        text: "Easy",
+                        backgroundColor: Colors.green,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    GameScreen(difficulity: Difficulty.easy),
+                              ));
+                        }),
+                    SizedBox(height: 20),
+                    GameButton(
+                        text: "Medium",
+                        backgroundColor: Colors.orange,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    GameScreen(difficulity: Difficulty.medium),
+                              ));
+                        }),
+                    SizedBox(height: 20),
+                    GameButton(
+                        text: "Hard",
+                        backgroundColor: Colors.red,
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    GameScreen(difficulity: Difficulty.hard),
+                              ));
+                        }),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
