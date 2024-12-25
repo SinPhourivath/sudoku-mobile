@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:sudoku/widgets/button.dart';
-import 'package:sudoku/widgets/topbar.dart';
+import 'package:sudoku/widgets/app_button.dart';
+import 'package:sudoku/widgets/app_topbar.dart';
 
 import '../models/difficulity_model.dart';
 import '../screens/game_screen.dart';
