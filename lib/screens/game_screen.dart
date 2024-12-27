@@ -79,6 +79,7 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
+  // Checking one number is better than comparing the whole board everytime
   void _checkGameNearingCompletion() {
     if (correctPlacements >= widget.difficulity.numbersToRemove) {
       _gameWon();
